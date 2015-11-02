@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		BFFD542C1BD77E3900147F2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD542B1BD77E3900147F2A /* AppDelegate.swift */; };
-		BFFD542E1BD77E3900147F2A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD542D1BD77E3900147F2A /* ViewController.swift */; };
+		BFFD542E1BD77E3900147F2A /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD542D1BD77E3900147F2A /* SuggestionsViewController.swift */; };
 		BFFD54311BD77E3900147F2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFFD542F1BD77E3900147F2A /* Main.storyboard */; };
 		BFFD54331BD77E3900147F2A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFFD54321BD77E3900147F2A /* Assets.xcassets */; };
 		BFFD54361BD77E3900147F2A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFFD54341BD77E3900147F2A /* LaunchScreen.storyboard */; };
 		BFFD54411BD77E3900147F2A /* SuggestinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD54401BD77E3900147F2A /* SuggestinatorTests.swift */; };
 		BFFD544C1BD77E3900147F2A /* SuggestinatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD544B1BD77E3900147F2A /* SuggestinatorUITests.swift */; };
+		BFFD545B1BD7887000147F2A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD545A1BD7887000147F2A /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
+		BFFD545D1BD7899500147F2A /* SuggestinatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD545C1BD7899500147F2A /* SuggestinatorViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		BFFD545F1BD799C900147F2A /* SuggestionCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD545E1BD799C900147F2A /* SuggestionCellViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		BFFD54281BD77E3900147F2A /* Suggestinator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Suggestinator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFFD542B1BD77E3900147F2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BFFD542D1BD77E3900147F2A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BFFD542D1BD77E3900147F2A /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
 		BFFD54301BD77E3900147F2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BFFD54321BD77E3900147F2A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BFFD54351BD77E3900147F2A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +50,9 @@
 		BFFD54471BD77E3900147F2A /* SuggestinatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SuggestinatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFFD544B1BD77E3900147F2A /* SuggestinatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestinatorUITests.swift; sourceTree = "<group>"; };
 		BFFD544D1BD77E3900147F2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BFFD545A1BD7887000147F2A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Libraries/SwiftyJSON.swift; sourceTree = "<group>"; };
+		BFFD545C1BD7899500147F2A /* SuggestinatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestinatorViewController.swift; sourceTree = "<group>"; };
+		BFFD545E1BD799C900147F2A /* SuggestionCellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionCellViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +103,15 @@
 		BFFD542A1BD77E3900147F2A /* Suggestinator */ = {
 			isa = PBXGroup;
 			children = (
+				BFFD54591BD7885100147F2A /* Libraries */,
 				BFFD542B1BD77E3900147F2A /* AppDelegate.swift */,
-				BFFD542D1BD77E3900147F2A /* ViewController.swift */,
+				BFFD542D1BD77E3900147F2A /* SuggestionsViewController.swift */,
 				BFFD542F1BD77E3900147F2A /* Main.storyboard */,
 				BFFD54321BD77E3900147F2A /* Assets.xcassets */,
 				BFFD54341BD77E3900147F2A /* LaunchScreen.storyboard */,
 				BFFD54371BD77E3900147F2A /* Info.plist */,
+				BFFD545C1BD7899500147F2A /* SuggestinatorViewController.swift */,
+				BFFD545E1BD799C900147F2A /* SuggestionCellViewController.swift */,
 			);
 			path = Suggestinator;
 			sourceTree = "<group>";
@@ -123,6 +132,14 @@
 				BFFD544D1BD77E3900147F2A /* Info.plist */,
 			);
 			path = SuggestinatorUITests;
+			sourceTree = "<group>";
+		};
+		BFFD54591BD7885100147F2A /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				BFFD545A1BD7887000147F2A /* SwiftyJSON.swift */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,7 +275,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFFD542E1BD77E3900147F2A /* ViewController.swift in Sources */,
+				BFFD545B1BD7887000147F2A /* SwiftyJSON.swift in Sources */,
+				BFFD545F1BD799C900147F2A /* SuggestionCellViewController.swift in Sources */,
+				BFFD542E1BD77E3900147F2A /* SuggestionsViewController.swift in Sources */,
+				BFFD545D1BD7899500147F2A /* SuggestinatorViewController.swift in Sources */,
 				BFFD542C1BD77E3900147F2A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
