@@ -41,7 +41,7 @@ class SuggestionsViewController: UICollectionViewController {
     }
     
     private func findSuggestions(callback:() -> ()) {
-        let encodedQuery = "https://www.tastekid.com/api/similar?q=" + query.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+        let encodedQuery = "https://www.tastekid.com/api/similar?k=173208-Suggesti-9BWWRVBZ&q=" + query.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         let request = NSMutableURLRequest(URL: NSURL(string: encodedQuery)!)
         request.HTTPMethod = "GET"
         
@@ -49,8 +49,8 @@ class SuggestionsViewController: UICollectionViewController {
         session.dataTaskWithRequest(request) { (data, response, error) in
             let tasteKidJSON = JSON(data: data!)
             for (_, json) in tasteKidJSON["Similar"]["Results"] {
-                let suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!)
-                self.findImage(suggestion)
+                var suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!)
+                self.findImage(&suggestion)
                 
                 self.suggestions.append(suggestion)
                 
@@ -78,27 +78,31 @@ class SuggestionsViewController: UICollectionViewController {
         
         let suggestion = self.suggestions[indexPath.item]
         cell.label.text = suggestion.title
-        cell.imageView.image = suggestion.image
+        cell.imageView.image = suggestion.image //UIImage(named: "Fredo")
         
         return cell
     }
     
-    private func findImage(var suggestion:Suggestion) {
+    private func findImage(inout suggestion:Suggestion) {
         let url_encoded = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=1&q=" + suggestion.title.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         
-        let googleImageJSON = JSON(data: getDataFromUrl(url_encoded))
+        let googleImageJSON = JSON(data: getDataFromUrl(url_encoded)!)
         
-        suggestion.image = UIImage(data: getDataFromUrl(googleImageJSON["responseData"]["results"][0]["url"].string!))!
+        let imageUrl = googleImageJSON["responseData"]["results"][0]["url"].string!
+        
+        if let imageData = getDataFromUrl(imageUrl) {
+            suggestion.image = UIImage(data: imageData)!
+        }
     }
     
-    private func getDataFromUrl(url:String) -> NSData {
+    private func getDataFromUrl(url:String) -> NSData? {
         if let url = NSURL(string: url) {
             if let data = NSData(contentsOfURL: url) {
                 return data
             }
         }
         
-        return NSData()
+        return nil
     }
 }
 
