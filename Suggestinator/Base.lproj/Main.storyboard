@@ -3,12 +3,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Suggestinator-->
         <scene sceneID="vFg-Fy-Pwp">
             <objects>
-                <tableViewController title="Suggestinator" id="GAi-Fm-AGq" customClass="SuggestionatorViewController" customModule="Suggestinator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="HomeView" title="Suggestinator" id="GAi-Fm-AGq" customClass="SuggestionatorViewController" customModule="Suggestinator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nwq-m0-kJx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,10 +99,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="VpV-VS-rVO"/>
+                    <connections>
+                        <outlet property="query" destination="9Ni-lO-mkj" id="Vtk-jl-NpB"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b4z-gk-e5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1313" y="975"/>
+            <point key="canvasLocation" x="325" y="1367"/>
         </scene>
         <!--Suggestions-->
         <scene sceneID="Rjb-Te-5ON">
@@ -131,7 +135,30 @@
                                             <animations/>
                                             <color key="backgroundColor" red="0.67972840314136129" green="0.67972840314136129" blue="0.67972840314136129" alpha="1" colorSpace="calibratedRGB"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vh-x1-hls" userLabel="SuggestionLabel">
+                                        <visualEffectView opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TyW-qg-UAW" userLabel="Blur - Vibrance">
+                                            <rect key="frame" x="0.0" y="98.5" width="151" height="42.5"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="7K5-Ft-tJc">
+                                                <rect key="frame" x="0.0" y="0.0" width="151" height="42.5"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Es-q3-Afo">
+                                                        <rect key="frame" x="0.0" y="-98.5" width="0.0" height="0.0"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Rdt-zv-y2r">
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <animations/>
+                                                        </view>
+                                                        <animations/>
+                                                        <vibrancyEffect>
+                                                            <blurEffect style="light"/>
+                                                        </vibrancyEffect>
+                                                    </visualEffectView>
+                                                </subviews>
+                                                <animations/>
+                                            </view>
+                                            <animations/>
+                                            <blurEffect style="extraLight"/>
+                                        </visualEffectView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vh-x1-hls" userLabel="SuggestionLabel">
                                             <rect key="frame" x="61" y="109.5" width="28.5" height="13.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -146,8 +173,13 @@
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="4Vh-x1-hls" secondAttribute="bottom" constant="10" id="Avl-Bh-Lph"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="height" secondItem="PCM-Qr-NZV" secondAttribute="height" id="Bwe-vj-oIx"/>
-                                    <constraint firstItem="4Vh-x1-hls" firstAttribute="centerX" secondItem="PCM-Qr-NZV" secondAttribute="centerX" id="Ptz-0b-FOk"/>
+                                    <constraint firstItem="4Vh-x1-hls" firstAttribute="centerY" secondItem="TyW-qg-UAW" secondAttribute="centerY" id="Ujx-Z5-TcZ"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="centerX" secondItem="Fug-5l-XbQ" secondAttribute="centerX" id="Uqp-i2-BhS"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="width" secondItem="PCM-Qr-NZV" secondAttribute="width" id="i3e-j5-Czo"/>
+                                    <constraint firstItem="4Vh-x1-hls" firstAttribute="centerX" secondItem="TyW-qg-UAW" secondAttribute="centerX" id="kjT-gg-hlB"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="height" secondItem="Fug-5l-XbQ" secondAttribute="height" multiplier="0.3" id="lOc-aK-qDS"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="bottom" secondItem="Fug-5l-XbQ" secondAttribute="bottom" id="oKk-iV-ukn"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="width" secondItem="Fug-5l-XbQ" secondAttribute="width" id="seS-Yf-eRr"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="centerY" secondItem="PCM-Qr-NZV" secondAttribute="centerY" id="wDR-Io-Aha"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="centerX" secondItem="PCM-Qr-NZV" secondAttribute="centerX" id="zba-nR-jEN"/>
                                 </constraints>
@@ -165,7 +197,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZcN-dy-7Ja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2173" y="979"/>
+            <point key="canvasLocation" x="1577" y="1367"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="whG-tb-Sl8">

@@ -10,6 +10,8 @@ import UIKit
 
 class SuggestionatorViewController: UITableViewController {
     
+    @IBOutlet weak var query: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -21,7 +23,7 @@ class SuggestionatorViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "FindSuggestions" {
             if let destination = segue.destinationViewController as? SuggestionsViewController {
-                destination.query = "Pulp Fiction"
+                destination.query = query.text!
             }
         }
     }

@@ -24,6 +24,7 @@ class SuggestionsViewController: UICollectionViewController {
     
     var query = ""
     var suggestions = [Suggestion]()
+    var suggestionDataTask:NSURLSessionDataTask?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,20 +36,31 @@ class SuggestionsViewController: UICollectionViewController {
         layout.minimumInteritemSpacing = 5
         layout.itemSize = CGSizeMake(computedCellSize, computedCellSize)
         
-        self.findSuggestions() { () -> () in
+        self.findSuggestions({ () -> () in
             self.collectionView?.reloadData();
+        }) { () -> () in
+            let alert = UIAlertController(title: "No results...", message: "No results have been found for your search criteria.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {
+                let homeView = self.storyboard!.instantiateViewControllerWithIdentifier("HomeView") as! SuggestionatorViewController
+                self.showViewController(homeView, sender: homeView)
+                
+                return nil
+            }()))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
-    private func findSuggestions(callback:() -> ()) {
+    private func findSuggestions(callback:() -> (), noResultCallback:() -> ()) {
         let encodedQuery = "https://www.tastekid.com/api/similar?k=173208-Suggesti-9BWWRVBZ&q=" + query.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         let request = NSMutableURLRequest(URL: NSURL(string: encodedQuery)!)
         request.HTTPMethod = "GET"
         
         let session = NSURLSession.sharedSession()
-        session.dataTaskWithRequest(request) { (data, response, error) in
+        suggestionDataTask = session.dataTaskWithRequest(request) { (data, response, error) in
             let tasteKidJSON = JSON(data: data!)
-            for (_, json) in tasteKidJSON["Similar"]["Results"] {
+            let results = tasteKidJSON["Similar"]["Results"];
+            for (_, json) in results {
                 var suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!)
                 self.findImage(&suggestion)
                 
@@ -58,7 +70,13 @@ class SuggestionsViewController: UICollectionViewController {
                     callback()
                 })
             }
-        }.resume()
+            
+            if (results.isEmpty) {
+                noResultCallback();
+            }
+        }
+        
+        suggestionDataTask!.resume()
     }
 
     override func didReceiveMemoryWarning() {
@@ -103,6 +121,12 @@ class SuggestionsViewController: UICollectionViewController {
         }
         
         return nil
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        suggestionDataTask!.cancel()
+        
+        super.viewWillAppear(animated)
     }
 }
 
