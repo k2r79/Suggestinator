@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ljg-dI-Ix8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ljg-dI-Ix8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Suggestinator-->
         <scene sceneID="vFg-Fy-Pwp">
             <objects>
-                <tableViewController title="Suggestinator" id="GAi-Fm-AGq" customClass="SuggestionatorViewController" customModule="Suggestinator" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="HomeView" title="Suggestinator" id="GAi-Fm-AGq" customClass="SuggestionatorViewController" customModule="Suggestinator" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nwq-m0-kJx">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,10 +99,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="VpV-VS-rVO"/>
+                    <connections>
+                        <outlet property="query" destination="9Ni-lO-mkj" id="Vtk-jl-NpB"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b4z-gk-e5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1313" y="975"/>
+            <point key="canvasLocation" x="325" y="1367"/>
         </scene>
         <!--Suggestions-->
         <scene sceneID="Rjb-Te-5ON">
@@ -118,6 +122,11 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" id="9ga-W7-pnq">
+                            <rect key="frame" x="0.0" y="-64" width="600" height="600"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <animations/>
+                        </activityIndicatorView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SuggestionCell" id="PCM-Qr-NZV" customClass="SuggestionCellViewController" customModule="Suggestinator" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="64" width="151" height="141"/>
@@ -126,17 +135,41 @@
                                     <rect key="frame" x="0.0" y="0.0" width="151" height="141"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fug-5l-XbQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="151" height="141"/>
+                                            <animations/>
+                                            <color key="backgroundColor" red="0.67972840314136129" green="0.67972840314136129" blue="0.67972840314136129" alpha="1" colorSpace="calibratedRGB"/>
+                                        </imageView>
+                                        <visualEffectView opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TyW-qg-UAW" userLabel="Blur - Vibrance">
+                                            <rect key="frame" x="0.0" y="98.5" width="151" height="42.5"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="7K5-Ft-tJc">
+                                                <rect key="frame" x="0.0" y="0.0" width="151" height="42.5"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <subviews>
+                                                    <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Es-q3-Afo">
+                                                        <rect key="frame" x="0.0" y="-98.5" width="0.0" height="0.0"/>
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Rdt-zv-y2r">
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <animations/>
+                                                        </view>
+                                                        <animations/>
+                                                        <vibrancyEffect>
+                                                            <blurEffect style="light"/>
+                                                        </vibrancyEffect>
+                                                    </visualEffectView>
+                                                </subviews>
+                                                <animations/>
+                                            </view>
+                                            <animations/>
+                                            <blurEffect style="extraLight"/>
+                                        </visualEffectView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Vh-x1-hls" userLabel="SuggestionLabel">
-                                            <rect key="frame" x="54" y="102.5" width="42" height="20.5"/>
+                                            <rect key="frame" x="61" y="109.5" width="28.5" height="13.5"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Fug-5l-XbQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="151" height="141"/>
-                                            <animations/>
-                                        </imageView>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -145,14 +178,20 @@
                                 <constraints>
                                     <constraint firstAttribute="bottomMargin" secondItem="4Vh-x1-hls" secondAttribute="bottom" constant="10" id="Avl-Bh-Lph"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="height" secondItem="PCM-Qr-NZV" secondAttribute="height" id="Bwe-vj-oIx"/>
-                                    <constraint firstItem="4Vh-x1-hls" firstAttribute="centerX" secondItem="PCM-Qr-NZV" secondAttribute="centerX" id="Ptz-0b-FOk"/>
+                                    <constraint firstItem="4Vh-x1-hls" firstAttribute="centerY" secondItem="TyW-qg-UAW" secondAttribute="centerY" id="Ujx-Z5-TcZ"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="centerX" secondItem="Fug-5l-XbQ" secondAttribute="centerX" id="Uqp-i2-BhS"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="width" secondItem="PCM-Qr-NZV" secondAttribute="width" id="i3e-j5-Czo"/>
+                                    <constraint firstItem="4Vh-x1-hls" firstAttribute="centerX" secondItem="TyW-qg-UAW" secondAttribute="centerX" id="kjT-gg-hlB"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="height" secondItem="Fug-5l-XbQ" secondAttribute="height" multiplier="0.3" id="lOc-aK-qDS"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="bottom" secondItem="Fug-5l-XbQ" secondAttribute="bottom" id="oKk-iV-ukn"/>
+                                    <constraint firstItem="TyW-qg-UAW" firstAttribute="width" secondItem="Fug-5l-XbQ" secondAttribute="width" id="seS-Yf-eRr"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="centerY" secondItem="PCM-Qr-NZV" secondAttribute="centerY" id="wDR-Io-Aha"/>
                                     <constraint firstItem="Fug-5l-XbQ" firstAttribute="centerX" secondItem="PCM-Qr-NZV" secondAttribute="centerX" id="zba-nR-jEN"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="Fug-5l-XbQ" id="KK1-6I-dWT"/>
                                     <outlet property="label" destination="4Vh-x1-hls" id="IKR-nh-6R4"/>
+                                    <segue destination="NiZ-lU-07e" kind="show" identifier="OpenSuggestionDetails" id="sbh-a1-a1t"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -161,10 +200,55 @@
                             <outlet property="delegate" destination="0Jj-tV-Hqa" id="erQ-w9-lTn"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <outlet property="activityIndicator" destination="9ga-W7-pnq" id="2Wf-cW-Qc2"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZcN-dy-7Ja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2173" y="979"/>
+            <point key="canvasLocation" x="1577" y="1367"/>
+        </scene>
+        <!--Suggestion Table View Controller-->
+        <scene sceneID="nAK-Ex-bhb">
+            <objects>
+                <tableViewController id="NiZ-lU-07e" customClass="SuggestionTableViewController" customModule="Suggestinator" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TSp-4S-gVb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SuggestionCell" id="W5s-Od-omW">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W5s-Od-omW" id="gfR-Yn-TLH">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SuggestionImageCell" rowHeight="200" id="g7d-7x-2qk" customClass="SuggestionImageCell" customModule="Suggestinator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="136" width="600" height="200"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g7d-7x-2qk" id="F9Y-n8-k5o">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="NiZ-lU-07e" id="NVJ-nU-CkO"/>
+                            <outlet property="delegate" destination="NiZ-lU-07e" id="2hO-fh-WYK"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hB7-1W-Bpd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2619" y="1367"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="whG-tb-Sl8">

@@ -10,23 +10,16 @@ import UIKit
 
 class SuggestionsViewController: UICollectionViewController {
     
-    struct Suggestion {
-        var title:String
-        var type:String
-        var image:UIImage
-        
-        init(title:String, type:String) {
-            self.title = title
-            self.type = type
-            self.image = UIImage()
-        }
-    }
-    
     var query = ""
     var suggestions = [Suggestion]()
+    var suggestionDataTask:NSURLSessionDataTask?
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicator.startAnimating()
         
         let computedCellSize = (self.collectionView!.frame.size.width - 20) / 2
         
@@ -35,22 +28,41 @@ class SuggestionsViewController: UICollectionViewController {
         layout.minimumInteritemSpacing = 5
         layout.itemSize = CGSizeMake(computedCellSize, computedCellSize)
         
-        self.findSuggestions() { () -> () in
+        self.findSuggestions({ () -> () in
+            self.activityIndicator.stopAnimating()
+            
             self.collectionView?.reloadData();
+        }) { () -> () in
+            let alert = UIAlertController(title: "No results...", message: "No results have been found for your search criteria.", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {
+                let homeView = self.storyboard!.instantiateViewControllerWithIdentifier("HomeView") as! SuggestionatorViewController
+                self.showViewController(homeView, sender: homeView)
+                
+                return nil
+            }()))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
-    private func findSuggestions(callback:() -> ()) {
-        let encodedQuery = "https://www.tastekid.com/api/similar?q=" + query.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
+    private func findSuggestions(callback:() -> (), noResultCallback:() -> ()) {
+        let encodedQuery = "https://www.tastekid.com/api/similar?k=173208-Suggesti-9BWWRVBZ&verbose=1&q=" + query.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
         let request = NSMutableURLRequest(URL: NSURL(string: encodedQuery)!)
         request.HTTPMethod = "GET"
         
         let session = NSURLSession.sharedSession()
-        session.dataTaskWithRequest(request) { (data, response, error) in
+        suggestionDataTask = session.dataTaskWithRequest(request) { (data, response, error) in
             let tasteKidJSON = JSON(data: data!)
-            for (_, json) in tasteKidJSON["Similar"]["Results"] {
-                let suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!)
-                self.findImage(suggestion)
+            let results = tasteKidJSON["Similar"]["Results"];
+            for (_, json) in results {
+                var suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!, summary: json["wTeaser"].string!)
+                
+                if json["yID"].string != nil {
+                    let imageURL = "https://i.ytimg.com/vi/" + json["yID"].string! + "/hqdefault.jpg"
+                    if let imageData = self.getDataFromUrl(imageURL) {
+                        suggestion.image = UIImage(data: imageData)!
+                    }
+                }
                 
                 self.suggestions.append(suggestion)
                 
@@ -58,7 +70,13 @@ class SuggestionsViewController: UICollectionViewController {
                     callback()
                 })
             }
-        }.resume()
+            
+            if (results.isEmpty) {
+                noResultCallback();
+            }
+        }
+        
+        suggestionDataTask!.resume()
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,28 +95,35 @@ class SuggestionsViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SuggestionCell", forIndexPath: indexPath) as! SuggestionCellViewController
         
         let suggestion = self.suggestions[indexPath.item]
+        cell.suggestion = suggestion
         cell.label.text = suggestion.title
         cell.imageView.image = suggestion.image
         
         return cell
     }
     
-    private func findImage(var suggestion:Suggestion) {
-        let url_encoded = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&rsz=1&q=" + suggestion.title.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!
-        
-        let googleImageJSON = JSON(data: getDataFromUrl(url_encoded))
-        
-        suggestion.image = UIImage(data: getDataFromUrl(googleImageJSON["responseData"]["results"][0]["url"].string!))!
-    }
-    
-    private func getDataFromUrl(url:String) -> NSData {
+    private func getDataFromUrl(url:String) -> NSData? {
         if let url = NSURL(string: url) {
             if let data = NSData(contentsOfURL: url) {
                 return data
             }
         }
         
-        return NSData()
+        return nil
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        suggestionDataTask!.cancel()
+        
+        super.viewWillAppear(animated)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "OpenSuggestionDetails" {
+            if let destination = segue.destinationViewController as? SuggestionTableViewController {
+                destination.suggestion = (sender as? SuggestionCellViewController)!.suggestion
+            }
+        }
     }
 }
 
