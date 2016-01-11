@@ -14,8 +14,12 @@ class SuggestionsViewController: UICollectionViewController {
     var suggestions = [Suggestion]()
     var suggestionDataTask:NSURLSessionDataTask?
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityIndicator.startAnimating()
         
         let computedCellSize = (self.collectionView!.frame.size.width - 20) / 2
         
@@ -25,6 +29,8 @@ class SuggestionsViewController: UICollectionViewController {
         layout.itemSize = CGSizeMake(computedCellSize, computedCellSize)
         
         self.findSuggestions({ () -> () in
+            self.activityIndicator.stopAnimating()
+            
             self.collectionView?.reloadData();
         }) { () -> () in
             let alert = UIAlertController(title: "No results...", message: "No results have been found for your search criteria.", preferredStyle: UIAlertControllerStyle.Alert)
