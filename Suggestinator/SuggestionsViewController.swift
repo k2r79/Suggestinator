@@ -51,9 +51,11 @@ class SuggestionsViewController: UICollectionViewController {
             for (_, json) in results {
                 var suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!, summary: json["wTeaser"].string!)
                 
-                let imageURL = "https://i.ytimg.com/vi/" + json["yID"].string! + "/hqdefault.jpg"
-                if let imageData = self.getDataFromUrl(imageURL) {
-                    suggestion.image = UIImage(data: imageData)!
+                if json["yID"].string != nil {
+                    let imageURL = "https://i.ytimg.com/vi/" + json["yID"].string! + "/hqdefault.jpg"
+                    if let imageData = self.getDataFromUrl(imageURL) {
+                        suggestion.image = UIImage(data: imageData)!
+                    }
                 }
                 
                 self.suggestions.append(suggestion)

@@ -22,16 +22,16 @@ class SuggestionTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("SuggestionCell") as UITableViewCell!
             
             cell.textLabel!.text = suggestion.title
-            cell.textLabel!.font = UIFont.systemFontOfSize(18.0)
+            cell.textLabel!.font = UIFont.systemFontOfSize(22.0)
             
             return cell
         }
         
         if (indexPath.row == 1) {
-            let cell = tableView.dequeueReusableCellWithIdentifier("SuggestionCell") as UITableViewCell!
+            let cell = tableView.dequeueReusableCellWithIdentifier("SuggestionImageCell") as! SuggestionImageCell
             
             cell.imageView!.image = suggestion.image
-            cell.imageView!.center = cell.center
+            cell.imageView!.contentMode = UIViewContentMode.ScaleAspectFill
             
             return cell
         }
@@ -39,8 +39,18 @@ class SuggestionTableViewController: UITableViewController {
         if (indexPath.row == 2) {
             let cell = tableView.dequeueReusableCellWithIdentifier("SuggestionCell") as UITableViewCell!
             
-            cell.textLabel!.text = suggestion.summary
-            cell.textLabel!.font = UIFont.systemFontOfSize(13.0)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = NSTextAlignment.Justified
+            
+            let attributedString = NSAttributedString(string: suggestion.summary,
+                attributes: [
+                    NSParagraphStyleAttributeName: paragraphStyle,
+                    NSBaselineOffsetAttributeName: NSNumber(float: 0)
+                ])
+
+            
+            cell.textLabel!.attributedText = attributedString
+            cell.textLabel!.font = UIFont.systemFontOfSize(13.5)
             cell.textLabel!.numberOfLines = 0
             
             return cell
@@ -55,7 +65,7 @@ class SuggestionTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if (indexPath.row == 1) {
-            return 150;
+            return 200
         }
         
         return UITableViewAutomaticDimension

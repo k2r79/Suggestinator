@@ -10,5 +10,7 @@ import UIKit
 
 class SuggestionImageCell: UITableViewCell {
     
-    @IBOutlet weak var suggestionImage: UIImageView!
+    override func layoutSubviews() {
+        imageView?.frame = CGRectMake(0, 0, self.frame.width, self.frame.height)
+    }
 }
