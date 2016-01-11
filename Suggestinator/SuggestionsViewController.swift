@@ -10,18 +10,6 @@ import UIKit
 
 class SuggestionsViewController: UICollectionViewController {
     
-    struct Suggestion {
-        var title:String
-        var type:String
-        var image:UIImage
-        
-        init(title:String, type:String) {
-            self.title = title
-            self.type = type
-            self.image = UIImage()
-        }
-    }
-    
     var query = ""
     var suggestions = [Suggestion]()
     var suggestionDataTask:NSURLSessionDataTask?
@@ -61,7 +49,7 @@ class SuggestionsViewController: UICollectionViewController {
             let tasteKidJSON = JSON(data: data!)
             let results = tasteKidJSON["Similar"]["Results"];
             for (_, json) in results {
-                var suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!)
+                var suggestion = Suggestion(title: json["Name"].string!, type: json["Type"].string!, summary: json["wTeaser"].string!)
                 
                 let imageURL = "https://i.ytimg.com/vi/" + json["yID"].string! + "/hqdefault.jpg"
                 if let imageData = self.getDataFromUrl(imageURL) {
@@ -99,8 +87,9 @@ class SuggestionsViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("SuggestionCell", forIndexPath: indexPath) as! SuggestionCellViewController
         
         let suggestion = self.suggestions[indexPath.item]
+        cell.suggestion = suggestion
         cell.label.text = suggestion.title
-        cell.imageView.image = suggestion.image //UIImage(named: "Fredo")
+        cell.imageView.image = suggestion.image
         
         return cell
     }
@@ -119,6 +108,14 @@ class SuggestionsViewController: UICollectionViewController {
         suggestionDataTask!.cancel()
         
         super.viewWillAppear(animated)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "OpenSuggestionDetails" {
+            if let destination = segue.destinationViewController as? SuggestionTableViewController {
+                destination.suggestion = (sender as? SuggestionCellViewController)!.suggestion
+            }
+        }
     }
 }
 

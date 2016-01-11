@@ -10,6 +10,8 @@ import UIKit
 
 class SuggestionCellViewController: UICollectionViewCell {
     
+    var suggestion:Suggestion!
+    
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var imageView: UIImageView!
 }

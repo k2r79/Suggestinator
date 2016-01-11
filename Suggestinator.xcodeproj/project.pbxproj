@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF29AEB71C444D4F003F0C4F /* SuggestionImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF29AEB61C444D4F003F0C4F /* SuggestionImageCell.swift */; settings = {ASSET_TAGS = (); }; };
+		BFF2EC7A1C22B9570046603A /* SuggestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF2EC791C22B9570046603A /* SuggestionTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		BFF2EC7C1C22B9FA0046603A /* Suggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF2EC7B1C22B9FA0046603A /* Suggestion.swift */; settings = {ASSET_TAGS = (); }; };
 		BFFD542C1BD77E3900147F2A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD542B1BD77E3900147F2A /* AppDelegate.swift */; };
 		BFFD542E1BD77E3900147F2A /* SuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFD542D1BD77E3900147F2A /* SuggestionsViewController.swift */; };
 		BFFD54311BD77E3900147F2A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BFFD542F1BD77E3900147F2A /* Main.storyboard */; };
@@ -37,6 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BF29AEB61C444D4F003F0C4F /* SuggestionImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionImageCell.swift; sourceTree = "<group>"; };
+		BFF2EC791C22B9570046603A /* SuggestionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionTableViewController.swift; sourceTree = "<group>"; };
+		BFF2EC7B1C22B9FA0046603A /* Suggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suggestion.swift; sourceTree = "<group>"; };
 		BFFD54281BD77E3900147F2A /* Suggestinator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Suggestinator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFFD542B1BD77E3900147F2A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BFFD542D1BD77E3900147F2A /* SuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +118,9 @@
 				BFFD54371BD77E3900147F2A /* Info.plist */,
 				BFFD545C1BD7899500147F2A /* SuggestinatorViewController.swift */,
 				BFFD545E1BD799C900147F2A /* SuggestionCellViewController.swift */,
+				BFF2EC791C22B9570046603A /* SuggestionTableViewController.swift */,
+				BFF2EC7B1C22B9FA0046603A /* Suggestion.swift */,
+				BF29AEB61C444D4F003F0C4F /* SuggestionImageCell.swift */,
 			);
 			path = Suggestinator;
 			sourceTree = "<group>";
@@ -277,8 +286,11 @@
 			files = (
 				BFFD545B1BD7887000147F2A /* SwiftyJSON.swift in Sources */,
 				BFFD545F1BD799C900147F2A /* SuggestionCellViewController.swift in Sources */,
+				BF29AEB71C444D4F003F0C4F /* SuggestionImageCell.swift in Sources */,
 				BFFD542E1BD77E3900147F2A /* SuggestionsViewController.swift in Sources */,
 				BFFD545D1BD7899500147F2A /* SuggestinatorViewController.swift in Sources */,
+				BFF2EC7A1C22B9570046603A /* SuggestionTableViewController.swift in Sources */,
+				BFF2EC7C1C22B9FA0046603A /* Suggestion.swift in Sources */,
 				BFFD542C1BD77E3900147F2A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,6 +518,7 @@
 				BFFD54521BD77E3900147F2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BFFD54531BD77E3900147F2A /* Build configuration list for PBXNativeTarget "SuggestinatorTests" */ = {
 			isa = XCConfigurationList;
@@ -514,6 +527,7 @@
 				BFFD54551BD77E3900147F2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BFFD54561BD77E3900147F2A /* Build configuration list for PBXNativeTarget "SuggestinatorUITests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +536,7 @@
 				BFFD54581BD77E3900147F2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ljg-dI-Ix8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Ljg-dI-Ix8">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -186,6 +186,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="Fug-5l-XbQ" id="KK1-6I-dWT"/>
                                     <outlet property="label" destination="4Vh-x1-hls" id="IKR-nh-6R4"/>
+                                    <segue destination="NiZ-lU-07e" kind="show" identifier="OpenSuggestionDetails" id="sbh-a1-a1t"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -198,6 +199,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZcN-dy-7Ja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1577" y="1367"/>
+        </scene>
+        <!--Suggestion Table View Controller-->
+        <scene sceneID="nAK-Ex-bhb">
+            <objects>
+                <tableViewController id="NiZ-lU-07e" customClass="SuggestionTableViewController" customModule="Suggestinator" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="TSp-4S-gVb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SuggestionCell" id="W5s-Od-omW" customClass="SuggestionTitleCell" customModule="Suggestinator" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="W5s-Od-omW" id="gfR-Yn-TLH">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="NiZ-lU-07e" id="NVJ-nU-CkO"/>
+                            <outlet property="delegate" destination="NiZ-lU-07e" id="2hO-fh-WYK"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hB7-1W-Bpd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2619" y="1367"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="whG-tb-Sl8">
